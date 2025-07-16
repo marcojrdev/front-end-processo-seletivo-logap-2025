@@ -1,0 +1,62 @@
+<div class="p-6 bg-white rounded-xl shadow-md max-w-2xl mx-auto">
+  <h2 class="text-2xl font-semibold text-gray-800 mb-6">
+    {{ isEditing ? 'Editar Produto' : 'Novo Produto' }}
+  </h2>
+
+  <form [formGroup]="produtoForm" (ngSubmit)="salvarProduto()" class="space-y-6">
+
+    <!-- Nome -->
+    <div>
+      <label for="nome" class="block text-sm font-medium text-gray-700 mb-1">Nome:</label>
+      <input id="nome" type="text" formControlName="nome"
+             class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <div *ngIf="produtoForm.get('nome')?.invalid && produtoForm.get('nome')?.touched"
+           class="text-red-600 text-sm mt-1">
+        Nome é obrigatório.
+      </div>
+    </div>
+
+    <!-- Descrição -->
+    <div>
+      <label for="descricao" class="block text-sm font-medium text-gray-700 mb-1">Descrição:</label>
+      <textarea id="descricao" formControlName="descricao"
+                class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                rows="3"></textarea>
+    </div>
+
+    <!-- Preço -->
+    <div>
+      <label for="preco" class="block text-sm font-medium text-gray-700 mb-1">Preço:</label>
+      <input id="preco" type="number" formControlName="preco" step="0.01"
+             class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <div *ngIf="produtoForm.get('preco')?.invalid && produtoForm.get('preco')?.touched"
+           class="text-red-600 text-sm mt-1">
+        Preço é obrigatório e deve ser maior que zero.
+      </div>
+    </div>
+
+    <!-- Quantidade -->
+    <div>
+      <label for="quantidade" class="block text-sm font-medium text-gray-700 mb-1">Quantidade:</label>
+      <input id="quantidade" type="number" formControlName="quantidade" min="0"
+             class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <div *ngIf="produtoForm.get('quantidade')?.invalid && produtoForm.get('quantidade')?.touched"
+           class="text-red-600 text-sm mt-1">
+        Quantidade é obrigatória e deve ser no mínimo zero.
+      </div>
+    </div>
+
+    <!-- Botões -->
+    <div class="flex justify-end gap-4 pt-4 border-t border-gray-200">
+      <button type="submit"
+              [disabled]="produtoForm.invalid"
+              class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition disabled:opacity-50">
+        Salvar
+      </button>
+      <button type="button" (click)="router.navigate(['/produtos'])"
+              class="px-6 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>

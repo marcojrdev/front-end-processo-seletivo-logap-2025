@@ -1,0 +1,37 @@
+<div class="p-6 bg-white rounded-xl shadow-md max-w-4xl mx-auto">
+  <h2 class="text-2xl font-semibold text-gray-800 mb-4">Clientes Mais Ativos</h2>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="flex items-center gap-2 text-blue-600">
+    <svg class="animate-spin h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"></path>
+    </svg>
+    Carregando clientes mais ativos...
+  </div>
+
+  <!-- Tabela -->
+  <div *ngIf="!isLoading && clientesAtivos.length > 0" class="overflow-x-auto mt-4">
+    <table class="min-w-full divide-y divide-gray-200 border rounded-lg shadow-sm">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">ID do Cliente</th>
+          <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Nome do Cliente</th>
+          <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Total de Pedidos</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100 bg-white text-sm text-gray-800">
+        <tr *ngFor="let cliente of clientesAtivos" class="hover:bg-gray-50 transition">
+          <td class="px-4 py-2">{{ cliente.idCliente }}</td>
+          <td class="px-4 py-2">{{ cliente.nomeCliente }}</td>
+          <td class="px-4 py-2">{{ cliente.totalPedidos }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Nenhum cliente encontrado -->
+  <div *ngIf="!isLoading && clientesAtivos.length === 0" class="mt-4 text-center text-gray-500 text-sm">
+    Nenhum cliente ativo encontrado.
+  </div>
+</div>

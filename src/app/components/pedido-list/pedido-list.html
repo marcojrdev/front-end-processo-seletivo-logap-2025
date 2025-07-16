@@ -1,0 +1,74 @@
+<div class="p-6 bg-white rounded-xl shadow-md">
+  <h2 class="text-2xl font-semibold mb-4 text-gray-800">Lista de Pedidos</h2>
+
+  <button (click)="adicionarPedido()"
+          class="mb-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition">
+    Novo Pedido
+  </button>
+
+  <div *ngIf="isLoading" class="flex items-center gap-2 text-blue-600">
+    <svg class="animate-spin h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10"
+              stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor"
+            d="M4 12a8 8 0 018-8v8z"></path>
+    </svg>
+    Carregando pedidos...
+  </div>
+
+  <table *ngIf="!isLoading && pedidos.length > 0" class="min-w-full table-auto border-collapse mt-4">
+    <thead>
+      <tr class="bg-gray-100 text-left text-sm font-medium text-gray-700">
+        <th class="px-4 py-2 border-b">ID</th>
+        <th class="px-4 py-2 border-b">Cliente</th>
+        <th class="px-4 py-2 border-b">Data</th>
+        <th class="px-4 py-2 border-b">Status</th>
+        <th class="px-4 py-2 border-b">Valor Total</th>
+        <th class="px-4 py-2 border-b">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pedido of pedidos" class="hover:bg-gray-50 text-sm text-gray-800">
+        <td class="px-4 py-2 border-b">{{ pedido.id }}</td>
+        <td class="px-4 py-2 border-b">{{ pedido.nomeCliente }}</td>
+        <td class="px-4 py-2 border-b">{{ pedido.dataPedido | date: 'short' }}</td>
+        <td class="px-4 py-2 border-b">
+          <span [ngClass]="{
+            'bg-yellow-100 text-yellow-800': pedido.status === 'EM_ANDAMENTO',
+            'bg-green-100 text-green-800': pedido.status === 'FINALIZADO',
+            'bg-red-100 text-red-800': pedido.status === 'CANCELADO'
+          }"
+          class="text-xs font-semibold px-2 py-1 rounded-full inline-block">
+            {{ pedido.status }}
+          </span>
+        </td>
+        <td class="px-4 py-2 border-b">{{ pedido.valorTotal | currency:'BRL':'symbol':'1.2-2' }}</td>
+        <td class="px-4 py-2 border-b flex flex-wrap gap-2">
+          <button (click)="verDetalhes(pedido.id)"
+                  class="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600">
+            Detalhes
+          </button>
+          <button *ngIf="pedido.status === 'EM_ANDAMENTO'"
+                  (click)="mudarStatus(pedido.id, 'FINALIZADO')"
+                  class="px-3 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600">
+            Finalizar
+          </button>
+          <button *ngIf="pedido.status !== 'CANCELADO' && pedido.status !== 'FINALIZADO'"
+                  (click)="mudarStatus(pedido.id, 'CANCELADO')"
+                  class="px-3 py-1 text-sm bg-yellow-500 text-white rounded hover:bg-yellow-600">
+            Cancelar
+          </button>
+          <button (click)="deletarPedido(pedido.id)"
+                  class="px-3 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600">
+            Deletar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!isLoading && pedidos.length === 0"
+       class="mt-4 text-center text-gray-500">
+    Nenhum pedido encontrado.
+  </div>
+</div>

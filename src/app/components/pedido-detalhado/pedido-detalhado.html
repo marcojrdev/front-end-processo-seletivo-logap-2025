@@ -1,0 +1,48 @@
+<div class="pedido-detail-container ">
+  <div *ngIf="isLoading" class="loading-spinner">Carregando detalhes do pedido...</div>
+
+  <div *ngIf="!isLoading && pedido" class="pedido-details">
+    <h2>Detalhes do Pedido #{{ pedido.id }}</h2>
+    <div class="detail-section">
+      <p><strong>Cliente:</strong> {{ pedido.nomeCliente }}</p>
+      <p><strong>Data do Pedido:</strong> {{ pedido.dataPedido | date: 'medium' }}</p>
+      <p>
+        <strong>Status:</strong>
+        <span [ngClass]="{
+          'status-em-andamento': pedido.status === 'EM_ANDAMENTO',
+          'status-finalizado': pedido.status === 'FINALIZADO',
+          'status-cancelado': pedido.status === 'CANCELADO'
+        }">
+          {{ pedido.status }}
+        </span>
+      </p>
+      <p><strong>Valor Total:</strong> {{ pedido.valorTotal | currency:'BRL':'symbol':'1.2-2' }}</p>
+    </div>
+
+    <h3>Itens do Pedido</h3>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Produto</th>
+          <th>Quantidade</th>
+          <th>Valor Unitário</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of pedido.itens">
+          <td>{{ item.nomeProduto }}</td>
+          <td>{{ item.quantidade }}</td>
+          <td>{{ item.valorUnitarioProduto | currency:'BRL':'symbol':'1.2-2' }}</td>
+          <td>{{ item.subtotal | currency:'BRL':'symbol':'1.2-2' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!isLoading && !pedido" class="no-data">
+    Pedido não encontrado.
+  </div>
+
+  <button (click)="voltarParaLista()" class="btn-secondary mt-3">Voltar</button>
+</div>
