@@ -20,8 +20,27 @@ export class Home {
 
      }
 
+     irParaPaginaResumo () {
+    this.Router.navigate(['/resumo']);
+     }
+
+     irParaPaginaPedidos() {
+    this.Router.navigate(['/pendentes']);
+     }
+
+     irParaPaginaAtivos() {
+    this.Router.navigate(['/ativos']);
+     }
+
     PedidosPagina() {
     this.Router.navigate(['/pedidos']);
+    }
+
+    ProdutosPagina() {
+    this.Router.navigate(['/produtos']);
+    }
+    ClientesPagina() {
+    this.Router.navigate(['/clientes']);
     }
 
 }
