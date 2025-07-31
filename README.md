@@ -1,59 +1,54 @@
 # FrontEndProcessoSeletivoLogap2025
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.0.
+Este projeto foi gerado com [Angular CLI](https://github.com/angular/angular-cli) versão 20.1.0.
 
-## Development server
+## Pré-requisitos
 
-To start a local development server, run:
+- [Node.js](https://nodejs.org/) (recomendado versão 18 ou superior)
+- [npm](https://www.npmjs.com/) (geralmente instalado junto com o Node.js)
 
+## Instalação
+
+Instale as dependências do projeto:
+
+```bash
+npm install
+```
+
+## Executando o servidor de desenvolvimento
+
+Para iniciar o servidor local, execute:
+
+```bash
+npm start
+```
+ou
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Acesse [http://localhost:4200/](http://localhost:4200/) no navegador. O aplicativo será recarregado automaticamente ao modificar os arquivos fonte.
 
-## Code scaffolding
+## Build
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+Para compilar o projeto para produção:
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Os artefatos serão gerados na pasta `dist/`.
 
-## Running unit tests
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+> O Angular CLI não inclui framework e2e por padrão. Escolha o que preferir.
 
-```bash
-ng test
-```
+## Estrutura de Pastas
 
-## Running end-to-end tests
+- `src/app/components/` — Componentes da aplicação
+- `src/app/services/` — Serviços de acesso à API
+- `public/` — Arquivos estáticos
+- `.vscode/` — Configurações do VS Code
 
-For end-to-end (e2e) testing, run:
+## Recursos Adicionais
 
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Consulte a [documentação do Angular CLI](https://angular.dev/tools/cli) para mais comandos e opções.
