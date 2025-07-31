@@ -1,6 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, PLATFORM_ID, Inject  } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { RelatorioService, ResumoVendas } from '../../services/relatorio/relatorio-service';
+import { isPlatformBrowser } from '@angular/common';
+
 
 @Component({
   selector: 'app-relatorio-resumo',
@@ -16,9 +18,16 @@ export class RelatorioResumo {
   isLoading = true;
 
   private relatorioService = inject(RelatorioService);
+   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
+
 
   ngOnInit(): void {
     this.carregarResumoVendas();
+    if (isPlatformBrowser(this.platformId) && this.isLoading == true) {
+    window.location.reload();
+
+    }
   }
 
   carregarResumoVendas(): void {

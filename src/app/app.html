@@ -1,5 +1,20 @@
+<header class="bg-blue-600 text-white p-4 shadow">
+  <h1 class="text-2xl font-bold text-center">Meu Aplicativo de Gerenciamento</h1>
+</header>
 
+<nav class="bg-gray-100 p-4 flex justify-center">
+  <button
+    class="home-button px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+    (click)="irParaPaginahome()"
+  >
+    Voltar para Home
+  </button>
+</nav>
 
+<main class="p-6">
+  <router-outlet></router-outlet>
+</main>
 
-
-<router-outlet />
+<footer class="bg-gray-800 text-white text-center p-4 mt-8">
+  <p>&copy; 2025 LogAp. Todos os direitos reservados.</p>
+</footer>
