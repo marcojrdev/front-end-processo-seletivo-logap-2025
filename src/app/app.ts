@@ -4,12 +4,11 @@ import { Home } from './components/home/home';
 
 import { FormsModule } from '@angular/forms';
 
-import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Home, FormsModule,   HttpClientModule, CommonModule],
+  imports: [RouterOutlet, FormsModule,   CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

@@ -1,48 +1,59 @@
-<div class="pedido-detail-container ">
-  <div *ngIf="isLoading" class="loading-spinner">Carregando detalhes do pedido...</div>
+<div class="p-6 bg-white rounded-xl shadow-md max-w-2xl mx-auto">
+  <div *ngIf="isLoading" class="text-center text-gray-600">
+    Carregando detalhes do pedido...
+  </div>
 
-  <div *ngIf="!isLoading && pedido" class="pedido-details">
-    <h2>Detalhes do Pedido #{{ pedido.id }}</h2>
-    <div class="detail-section">
+  <div *ngIf="!isLoading && pedido">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-4">
+      Detalhes do Pedido #{{ pedido.id }}
+    </h2>
+
+    <div class="space-y-3 mb-6">
       <p><strong>Cliente:</strong> {{ pedido.nomeCliente }}</p>
       <p><strong>Data do Pedido:</strong> {{ pedido.dataPedido | date: 'medium' }}</p>
       <p>
         <strong>Status:</strong>
         <span [ngClass]="{
-          'status-em-andamento': pedido.status === 'EM_ANDAMENTO',
-          'status-finalizado': pedido.status === 'FINALIZADO',
-          'status-cancelado': pedido.status === 'CANCELADO'
-        }">
+          'text-yellow-600': pedido.status === 'EM_ANDAMENTO',
+          'text-green-600': pedido.status === 'FINALIZADO',
+          'text-red-600': pedido.status === 'CANCELADO'
+        }" class="font-semibold">
           {{ pedido.status }}
         </span>
       </p>
       <p><strong>Valor Total:</strong> {{ pedido.valorTotal | currency:'BRL':'symbol':'1.2-2' }}</p>
     </div>
 
-    <h3>Itens do Pedido</h3>
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th>Produto</th>
-          <th>Quantidade</th>
-          <th>Valor Unitário</th>
-          <th>Subtotal</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of pedido.itens">
-          <td>{{ item.nomeProduto }}</td>
-          <td>{{ item.quantidade }}</td>
-          <td>{{ item.valorUnitarioProduto | currency:'BRL':'symbol':'1.2-2' }}</td>
-          <td>{{ item.subtotal | currency:'BRL':'symbol':'1.2-2' }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <h3 class="text-xl font-semibold text-gray-700 mb-2">Itens do Pedido</h3>
+    <div class="overflow-x-auto">
+      <table class="min-w-full text-left text-sm border border-gray-200 rounded-md">
+        <thead class="bg-gray-100 text-gray-700">
+          <tr>
+            <th class="px-4 py-2 border-b">Produto</th>
+            <th class="px-4 py-2 border-b">Quantidade</th>
+            <th class="px-4 py-2 border-b">Valor Unitário</th>
+            <th class="px-4 py-2 border-b">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of pedido.itens" class="border-t hover:bg-gray-50">
+            <td class="px-4 py-2">{{ item.nomeProduto }}</td>
+            <td class="px-4 py-2">{{ item.quantidade }}</td>
+            <td class="px-4 py-2">{{ item.valorUnitarioProduto | currency:'BRL':'symbol':'1.2-2' }}</td>
+            <td class="px-4 py-2">{{ item.subtotal | currency:'BRL':'symbol':'1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  <div *ngIf="!isLoading && !pedido" class="no-data">
+  <div *ngIf="!isLoading && !pedido" class="text-center text-gray-500 mt-6">
     Pedido não encontrado.
   </div>
 
-  <button (click)="voltarParaLista()" class="btn-secondary mt-3">Voltar</button>
+  <div class="flex justify-end mt-6">
+    <button (click)="voltarParaLista()" class="px-6 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition">
+      Voltar
+    </button>
+  </div>
 </div>

@@ -37,7 +37,8 @@ export class Home {
     }
 
     ProdutosPagina() {
-    this.Router.navigate(['/produtos']);
+
+      this.Router.navigate(['/produtos']);
     }
     ClientesPagina() {
     this.Router.navigate(['/clientes']);

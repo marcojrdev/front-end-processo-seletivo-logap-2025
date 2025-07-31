@@ -1,31 +1,42 @@
 import { PedidoService } from './../../services/pedidos/pedidoService';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef, PLATFORM_ID, Inject   } from '@angular/core';
 import { CommonModule, DatePipe, CurrencyPipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { PedidoResponse } from '../../services/pedidos/pedidoService';
 import { HttpClientModule } from '@angular/common/http';
+import { isPlatformBrowser } from '@angular/common';
+
+
+
 @Component({
   selector: 'app-pedido-list',
   standalone: true,
+  //host: { 'ngSkipHydration': 'true' },
   imports: [
     CommonModule,
     DatePipe,
     CurrencyPipe,
-    HttpClientModule,
-    RouterLink,
+
   ],
   templateUrl: './pedido-list.html',
   styleUrl: './pedido-list.css'
 })
 export class PedidoList implements OnInit{
   pedidos: PedidoResponse[] = [];
-  isLoading = true;
+  isLoading = false;
 
   private PedidoService = inject(PedidoService);
   private router = inject(Router);
+   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
 
   ngOnInit(): void {
+    console.log('ngOnInit chamado');
       this.carregarPedidos();
+      if (isPlatformBrowser(this.platformId) && this.isLoading == true) {
+    window.location.reload();
+
+    }
   }
 
   carregarPedidos(): void {

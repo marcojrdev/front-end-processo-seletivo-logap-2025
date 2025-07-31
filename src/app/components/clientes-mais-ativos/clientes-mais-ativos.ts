@@ -1,6 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, PLATFORM_ID, Inject } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { RelatorioService, ClienteAtivo } from '../../services/relatorio/relatorio-service'
+import { isPlatformBrowser } from '@angular/common';
+
 
 @Component({
   selector: 'app-clientes-mais-ativos',
@@ -16,9 +18,15 @@ export class ClientesMaisAtivos {
   isLoading = true;
 
   private relatorioService = inject(RelatorioService);
+   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
 
   ngOnInit(): void {
     this.carregarClientesAtivos();
+    if (isPlatformBrowser(this.platformId) && this.isLoading == true) {
+    window.location.reload();
+
+    }
   }
 
   carregarClientesAtivos(): void {

@@ -1,6 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, PLATFORM_ID, Inject } from '@angular/core';
 import { CommonModule, DatePipe, CurrencyPipe } from '@angular/common';
 import { RelatorioService, PedidoPendente } from '../../services/relatorio/relatorio-service';
+import { isPlatformBrowser } from '@angular/common';
+
 
 @Component({
   selector: 'app-relatorio-pedidos-pendentes',
@@ -18,9 +20,16 @@ export class RelatorioPedidosPendentes {
   isLoading = true;
 
   private relatorioService = inject(RelatorioService);
+   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
 
   ngOnInit(): void {
     this.carregarPedidosPendentes();
+    if (isPlatformBrowser(this.platformId) && this.isLoading == true) {
+    window.location.reload();
+
+    }
+
   }
 
   carregarPedidosPendentes(): void {

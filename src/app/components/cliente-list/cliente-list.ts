@@ -1,7 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, PLATFORM_ID, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { Cliente} from '../../services/cliente/cliente';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-cliente-list',
@@ -18,9 +19,15 @@ export class ClienteList implements OnInit{
 
   private clienteService = inject(Cliente);
   private router = inject(Router);
+   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+
 
   ngOnInit(): void {
     this.carregarClientes();
+    if (isPlatformBrowser(this.platformId) && this.isLoading == true) {
+    window.location.reload();
+
+    }
   }
 
   carregarClientes(): void {

@@ -1,8 +1,10 @@
 import { routes } from './../../app.routes';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, PLATFORM_ID, Inject  } from '@angular/core';
 import { CommonModule, DatePipe, CurrencyPipe } from '@angular/common'; // Módulos comuns
 import { ActivatedRoute, Router } from '@angular/router';
 import { PedidoService, PedidoResponse } from '../../services/pedidos/pedidoService';
+import { isPlatformBrowser } from '@angular/common';
+
 
 @Component({
   selector: 'app-pedido-detalhado',
@@ -21,6 +23,7 @@ export class PedidoDetalhado {
   private route = inject(ActivatedRoute);
   private pedidoService = inject(PedidoService);
   private router = inject(Router);
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
     ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -32,6 +35,11 @@ export class PedidoDetalhado {
         console.error('ID do pedido não fornecido.');
       }
     });
+
+    if (isPlatformBrowser(this.platformId) && this.isLoading == true) {
+    window.location.reload();
+
+    }
    }
 
    carregarPedido(id: number): void {
